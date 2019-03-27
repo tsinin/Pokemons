@@ -176,7 +176,7 @@ Library& Pokedex() {
     static Library _instance;                    /// I have parsed database ("pokedex.txt") and I wanted to
     if(_instance.empty()){                       /// have an opportunity to change pokemon stats
         std::ifstream in;                        /// in new game but I also didn't want to have an opportunity
-        in.open("../Pokemons/pokedex.txt");      /// to change stats during the game so I create a "Singleton"
+        in.open("../../Pokemons/pokedex.txt");      /// to change stats during the game so I create a "Singleton"
         for(pokemonId i = 1; i <= 926; i++){     /// Pokedex for the case if someone change smth during the game.
             std::string s;
             getline(in, s);

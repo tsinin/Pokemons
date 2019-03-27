@@ -1,5 +1,7 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.10)
 project(Pokemons)
+
+SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin" CACHE PATH "Single output directory for building all executables." FORCE)
 
 set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(google-tests/googletest-master)
