@@ -6,7 +6,7 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "Pokemons/Game.h"
+#include "PokemonsGame/Game.h"
 
 using testing::Eq;
 

@@ -141,6 +141,7 @@ public:
 /// The next is a pattern "Singleton"
 /// for keeping library of pokemons (Pokedex).
 
+<<<<<<< HEAD:PokemonsGame/Pokemon.h
 typedef std::unordered_map<pokemonId, Pokemon*> Library;
 class Pokedex {
 private:
@@ -161,6 +162,30 @@ public:
                 std::string text;
 
                 auto p = new Pokemon();
+=======
+/// There were problems with undefined references
+/// (or using members of declared but undefined class)
+/// when I wrote "Singleton" in class-style
+/// so here is a realization in function-style
+
+Library& Pokedex() {
+    static Library _instance;                    /// I have parsed database ("pokedex.txt") and I wanted to
+    if(_instance.empty()){                       /// have an opportunity to change pokemon stats
+        std::ifstream in;                        /// in new game but I also didn't want to have an opportunity
+        in.open("PokemonsGame/pokedex.txt");      /// to change stats during the game so I create a "Singleton"
+        for(pokemonId i = 1; i <= 926; i++){     /// Pokedex for the case if someone change smth during the game.
+            std::string s;
+            getline(in, s);
+            std::stringstream pokemon(s);
+            std::string text;
+
+            auto p = new Pokemon();
+            pokemon >> text;
+            p->setName(text);
+            int num;
+            pokemon >> num;
+            for(int j = 0; j < num; j++) {
+>>>>>>> c7e8dad7d00ddc51f67093c8ab4a34858e9090d6:PokemonsGame/Pokemon.h
                 pokemon >> text;
                 p->setName(text);
                 int num;
