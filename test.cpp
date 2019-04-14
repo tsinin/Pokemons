@@ -124,7 +124,7 @@ TEST_F(testFixture, PokemonStringToPokTypeTest2) {
 
 TEST_F(testFixture, PokedexCloneTest) {
     Pokemon *pokemon = nullptr;
-    pokemon = pokemon->clone(1, 10);
+    pokemon = PokemonPrototype::clone(1, 10);
     ASSERT_EQ(pokemon->getId(), 1);
     ASSERT_EQ(pokemon->getName(), "Bulbasaur");
     ASSERT_EQ(pokemon->getNextPokemon(), 2);
@@ -146,7 +146,7 @@ TEST_F(testFixture, PokedexCloneTest) {
 
 TEST_F(testFixture, PokemonCopyConstructorTest) {
     Pokemon *pokemon1;
-    pokemon1 = pokemon1->clone(1, 10);
+    pokemon1 = PokemonPrototype::clone(1, 10);
     auto *pokemon2 = new Pokemon(*pokemon1);
     ASSERT_EQ(pokemon2->getId(), 1);
     ASSERT_EQ(pokemon2->getName(), "Bulbasaur");
@@ -169,7 +169,7 @@ TEST_F(testFixture, PokemonCopyConstructorTest) {
 
 TEST_F(testFixture, PokemonIncreaseLevelTest1) {
     Pokemon* pokemon = nullptr;
-    pokemon = pokemon->clone(1, 14);
+    pokemon = PokemonPrototype::clone(1, 14);
     pokemon = pokemon->increaseLevel();
     ASSERT_EQ(pokemon->getId(), 1);
     ASSERT_EQ(pokemon->getName(), "Bulbasaur");
@@ -192,7 +192,7 @@ TEST_F(testFixture, PokemonIncreaseLevelTest1) {
 
 TEST_F(testFixture, PokemonIncreaseLevelTest2) {
     Pokemon* pokemon = nullptr;
-    pokemon = pokemon->clone(1, 15);
+    pokemon = PokemonPrototype::clone(1, 15);
     pokemon = pokemon->increaseLevel();
     ASSERT_EQ(pokemon->getId(), 2);
     ASSERT_EQ(pokemon->getName(), "Ivysaur");
