@@ -1,0 +1,20 @@
+language: cpp
+compiler: gcc
+dist: xenial
+
+os: linux
+
+env:
+  - TARGET_CPU=amd64 TEST=ON
+  - TARGET_CPU=x86 TEST=ON
+
+install:
+  - source ci/travis/install-$TRAVIS_OS_NAME.sh
+
+script:
+  - cd build
+  - cmake .. -DTEST=$TEST -DTARGET_CPU=$TARGET_CPU
+  - make
+  - ./Pokemons
+  - g++ main.cpp -std=c++17 -o travis_gcc_cpp17
+  - ./travis_gcc_cpp17

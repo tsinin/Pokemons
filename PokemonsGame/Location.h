@@ -133,6 +133,6 @@ public:
     }
 };
 
-inline LocationLibrary LocationBank::l_instance = LocationLibrary();
+LocationLibrary LocationBank::l_instance = LocationLibrary();
 
 #endif //POKEMONS_LOCATION_H

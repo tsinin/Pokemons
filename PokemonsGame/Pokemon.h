@@ -223,7 +223,7 @@ public:
     }
 };
 
-inline PokemonLibrary Pokedex::p_instance = PokemonLibrary();
+PokemonLibrary Pokedex::p_instance = PokemonLibrary();
 
 
 /// The next class PokemonPrototype realizes a "Prototype" pattern;
