@@ -9,8 +9,8 @@ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
 sudo apt-get install make
 
 
-CMAKE_VERSION=3.3.2
-CMAKE_VERSION_DIR=v3.3
+CMAKE_VERSION=3.14.3
+CMAKE_VERSION_DIR=v3.14
 
 CMAKE_OS=Linux-x86_64
 CMAKE_TAR=cmake-$CMAKE_VERSION-$CMAKE_OS.tar.gz
