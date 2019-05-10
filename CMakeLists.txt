@@ -10,11 +10,9 @@ include_directories(google-tests/googletest-master/googlemock/include)
 add_executable(Pokemons
         main.cpp
         PokemonsGame/Game.h
-        PokemonsGame/World.h
         PokemonsGame/Location.h
         PokemonsGame/Player.h
-        PokemonsGame/Inventory.h
         PokemonsGame/Pokemon.h
         PokemonsGame/Ability.h
-        test.cpp PokemonsGame/Item.h)
+        test.cpp PokemonsGame/Battle.h)
 target_link_libraries(Pokemons gtest gtest_main)
