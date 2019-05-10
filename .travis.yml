@@ -9,7 +9,7 @@ env:
   - TARGET_CPU=x86 TEST=ON
 
 install:
-  - source ci/travis/install-$TRAVIS_OS_NAME.sh
+  - source ci/travis/install-linux.sh
 
 script:
   - cd build
