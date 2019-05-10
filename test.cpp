@@ -15,14 +15,40 @@ namespace {
     class PokemonTest : public testing::Test {
     };
 
-    class RealPokemonTest : public testing::Test {
-    };
-
     class AbilityTest : public testing::Test {
     private:
-
+        std::ifstream in;
+        std::streambuf *cinbuf;
+        std::ofstream out;
+        std::streambuf *coutbuf;
     public:
-        AbilityTest() {
+        std::ifstream myin;
+        std::ofstream myout;
+        void open() {
+            in.close();
+            out.close();
+
+            myin.open("in.txt");
+            myout.open("out.txt");
+        }
+
+        void close() {
+            myin.close();
+            myout.close();
+/*
+            myout.open("in.txt",  std::ofstream::out | std::ofstream::trunc);
+            myout.close();
+            myout.open("out.txt",  std::ofstream::out | std::ofstream::trunc);
+            myout.close();*/
+
+            in.open("out.txt");
+            cinbuf = cin.rdbuf(); //save old buf
+            cin.rdbuf(in.rdbuf()); //redirect std::cin to in.txt!
+
+            out.open("in.txt");
+            coutbuf = cout.rdbuf(); //save old buf
+            cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
+
         }
     };
 
@@ -297,14 +323,6 @@ TEST_F(PokemonTest, PokemonIncreaseLevelTest2) {
 
 
 
-
-/// RealPokemon Test!!
-
-
-
-
-
-
 TEST_F(LocationTest, LocationDefaultConstructorTest) {
     Location* location = new Location();
     ASSERT_EQ(location->getName(), "");
@@ -360,10 +378,10 @@ TEST_F(LocationTest, LocationNeighboursSetGetTest) {
 
 TEST_F(LocationTest, LocationGetRandomPokemonTest) {
     Location* location = LocationBank::instance()[1];
-    auto p = location->getRandomPokemon();
-    auto t = location->getLocalPokemons();
-    ASSERT_TRUE(std::find(t.begin(), t.end(), p->getId()) != t.end());
-    ASSERT_TRUE(abs(p->getLevel() - location->getAverageLevel()) < 5);
+    auto pok = location->getRandomPokemon();
+    auto loc = location->getLocalPokemons();
+    ASSERT_TRUE(std::find(loc.begin(), loc.end(), pok->getId()) != loc.end());
+    ASSERT_TRUE(abs(pok->getLevel() - location->getAverageLevel()) < 5);
 }
 
 TEST_F(LocationTest, LocationPrintTest) {
@@ -413,4 +431,58 @@ TEST_F(LocationTest, LocationLibraryTest2) {
     ASSERT_EQ(location->getNeighbours()[0]->getName(), "Home");
     ASSERT_EQ(location->getNeighbours()[1]->getName(), "Evening meadow");
     ASSERT_EQ(location->getSumProbability(), 7);
+}
+
+
+
+TEST_F(AbilityTest, AbilitySetGetNameTest) {
+    Ability* a = new Ability();
+    a->setName("Abc");
+    ASSERT_EQ(a->getName(), "Abc");
+}
+
+
+TEST_F(AbilityTest, AbilitySetGetAttackPowerTest) {
+    Ability* a = new Ability();
+    a->setAttackPower(100500);
+    ASSERT_EQ(a->getAttackPower(), 100500);
+}
+
+
+TEST_F(AbilityTest, AbilitySetGetObjTest) {
+    Ability* a = new Ability();
+    a->setObj(nullptr);
+    ASSERT_EQ(a->getObj(), nullptr);
+}
+
+
+TEST_F(AbilityTest, AbilitySetGetSubjTest) {
+    Ability* a = new Ability();
+    a->setSubj(nullptr);
+    ASSERT_EQ(a->getSubj(), nullptr);
+}
+
+TEST_F(AbilityTest, AbilitySetGetSpecialTest) {
+    Ability* a = new Ability();
+    a->setSpecial(false);
+    ASSERT_EQ(a->getSpecial(), false);
+}
+
+TEST_F(AbilityTest, AbilityDefaultConstructorTest) {
+    auto *p = new Ability();
+    ASSERT_EQ(p->getName(), "");
+    ASSERT_EQ(p->getAttackPower(), 0);
+    ASSERT_EQ(p->getObj(), nullptr);
+    ASSERT_EQ(p->getSubj(), nullptr);
+    ASSERT_FALSE(p->getSpecial());
+}
+
+TEST_F(AbilityTest, AbilityCopyConstructorTest) {
+    auto p = AbilityBank::instance()[0];
+    auto t = new Ability(*p);
+    ASSERT_EQ(t->getName(), p->getName());
+    ASSERT_EQ(t->getAttackPower(), p->getAttackPower());
+    ASSERT_EQ(t->getObj(), p->getObj());
+    ASSERT_EQ(t->getSubj(), p->getSubj());
+    ASSERT_EQ(t->getSpecial(), p->getSpecial());
 }
