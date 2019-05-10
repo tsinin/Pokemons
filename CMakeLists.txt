@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 option(TEST "Build tests instead of program" ON)
 
-
 if(TEST)
     add_subdirectory(google-tests/googletest-master)
     include_directories(google-tests/googletest-master/googletest/include)

@@ -36,16 +36,32 @@ namespace {
         std::ofstream out;
         std::streambuf *coutbuf;
     public:
-        LocationTest() {
-            in.open("in.txt");
+        std::ifstream myin;
+        std::ofstream myout;
+        void open() {
+            in.close();
+            out.close();
+
+            myin.open("in.txt");
+            myout.open("out.txt");
+        }
+
+        void close() {
+            myin.close();
+            myout.close();
+/*
+            myout.open("in.txt",  std::ofstream::out | std::ofstream::trunc);
+            myout.close();
+            myout.open("out.txt",  std::ofstream::out | std::ofstream::trunc);
+            myout.close();*/
+
+            in.open("out.txt");
             cinbuf = cin.rdbuf(); //save old buf
             cin.rdbuf(in.rdbuf()); //redirect std::cin to in.txt!
 
-            out.open("out.txt");
+            out.open("in.txt");
             coutbuf = cout.rdbuf(); //save old buf
             cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
-        }
-        ~LocationTest() {
 
         }
     };
@@ -337,25 +353,42 @@ TEST_F(LocationTest, LocationSumProbabilitySetGetTest) {
 }
 
 TEST_F(LocationTest, LocationNeighboursSetGetTest) {
-    Location* location = LocationBank::instance()[0];
+    Location* location = new Location(*LocationBank::instance()[0]);
     location->addNeighbour(nullptr);
     ASSERT_EQ(location->getNeighbours(), std::vector<Location*>({LocationBank::instance()[1], nullptr}));
 }
 
 TEST_F(LocationTest, LocationGetRandomPokemonTest) {
-
+    Location* location = LocationBank::instance()[1];
+    auto p = location->getRandomPokemon();
+    auto t = location->getLocalPokemons();
+    ASSERT_TRUE(std::find(t.begin(), t.end(), p->getId()) != t.end());
+    ASSERT_TRUE(abs(p->getLevel() - location->getAverageLevel()) < 5);
 }
 
 TEST_F(LocationTest, LocationPrintTest) {
+    Location* location = LocationBank::instance()[0];
 
+    close();
+    location->print();
+    open();
+
+    std::string s;
+    getline(myin, s);
+    ASSERT_EQ(s, "Home. Here are no aggressive pokemons but you can repair your pokemons here.");
+    getline(myin, s);
+    ASSERT_EQ(s, "Local pokemons are:");
 }
 
 TEST_F(LocationTest, LocationPrintNeighboursTest) {
     Location* location = LocationBank::instance()[0];
+
+    close();
     location->printNeighbours();
-    std::ifstream in("out.txt");
+    open();
+
     std::string s;
-    getline(in, s);
+    getline(myin, s);
     ASSERT_EQ(s, "1. Light forest");
 }
 

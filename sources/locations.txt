@@ -6,4 +6,3 @@
 'Horrific cave'   'Sounds terrible. Average level is... Try by yourself!'  3   56 63 66   1 1 1   45   2  3 5
 'Cleft of fear'   'Scared? It is ok for people staying here. Average level is 60'   3   49 51 76   1 2 1   60   1  4
 'Lake of suffering'   'The name speaks for itself, is not it'    4    79 149 159 160   1 1 1 1   70    1  2
-''

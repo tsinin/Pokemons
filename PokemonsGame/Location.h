@@ -17,6 +17,15 @@ private:
     std::vector<Location*> neighbours = std::vector<Location*>(0);
 public:
     Location(): name(""), description(""), averageLevel(0), sumProbability(0) {};
+    Location(const Location& loc) {
+        name = loc.name;
+        description = loc.description;
+        localPokemons = std::vector<pokemonId>(loc.localPokemons);
+        probability = std::vector<int>(loc.probability);
+        sumProbability = loc.sumProbability;
+        averageLevel = loc.averageLevel;
+        neighbours = std::vector<Location*>(loc.neighbours);
+    }
 
     void setName(const std::string &_name) {name = _name;}
     void setDescription(const std::string &_description) {description = _description;}
@@ -35,6 +44,8 @@ public:
     std::vector<Location*> getNeighbours() const {return neighbours;}
 
     Pokemon* getRandomPokemon() {
+        if(neighbours.empty())
+            return nullptr;
         int rand_pok = rand() % sumProbability + 1;
         int pok_num = 0;
         for(int i = 0; i < localPokemons.size(); ++i) {
