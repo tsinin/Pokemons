@@ -3,7 +3,7 @@ project(Pokemons)
 
 set(CMAKE_CXX_STANDARD 17)
 
-option(TEST "Build tests instead of program" ON)
+option(TEST "Build tests instead of program" OFF)
 
 if(TEST)
     add_subdirectory(google-tests/googletest-master)

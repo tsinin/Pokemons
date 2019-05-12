@@ -28,6 +28,8 @@ private:
     Pokemon *obj, *subj;
     bool special;
 public:
+    Ability(const Ability& a) = default;
+
     const std::string &getName() const {return name;}
     int getAttackPower() const {return attackPower;}
     Pokemon *getObj() const {return obj;}
@@ -42,26 +44,18 @@ public:
 
     Ability(): name(""), attackPower(0), obj(nullptr), subj(nullptr), special(false) {};
 
-    Ability(const Ability& ability) {
-        name = ability.getName();
-        attackPower = ability.getAttackPower();
-        obj = ability.getObj();
-        subj = ability.getSubj();
-        special = ability.getSpecial();
-    }
-
     void execute() {
         int damage;
-        if(!special) {
-            damage = (int)((2 * obj->getLevel() + 10) * obj->getAttack() * attackPower / 250 /
-                           subj->getDefense() + 2);
+        if(special) {
+            damage = (int)((2 * obj->getLevel() + 10) * obj->getSpAttack() * attackPower / 250 /
+                           subj->getSpDefense() + 2);
             for(auto t: obj->getTypes())
                 for(auto p: subj->getTypes())
                     damage = (int)((double)damage * types[p][t]);
         }
         else
-            damage = (int)((2 * obj->getLevel() + 10) * obj->getSpAttack() * attackPower / 250 /
-                    subj->getSpDefense() + 2);
+            damage = (int)((2 * obj->getLevel() + 10) * obj->getAttack() * attackPower / 250 /
+                    subj->getDefense() + 2);
         subj->setHp(std::max(0, subj->getHp() - damage));
     }
 
@@ -80,15 +74,18 @@ public:
     AbilityBank(const AbilityBank&) = delete;
     AbilityBank& operator=(const AbilityBank&) = delete;
     static AbilityLibrary& instance() {
-        if(a_instance.empty()){
-            std::ifstream in;
-            in.open("../sources/abilities.txt");
-            int numOfAbilities;
-            in >> numOfAbilities;
+        if(a_instance.empty() || ABILITIES_DELETED){
+            ABILITIES_DELETED = false;
+            a_instance = AbilityLibrary();
+            std::ifstream fin;
+            fin.open("../sources/abilities.txt");
+            //int numOfAbilities;
+            //fin >> numOfAbilities;
             std::string ability;
-            getline(in, ability);
+            getline(fin, ability);
+            int numOfAbilities = std::stoi(ability);
             for(int i = 0; i < numOfAbilities; ++i) {
-                getline(in, ability);
+                getline(fin, ability);
                 auto *newAbility = new Ability();
                 int a = ability.find('\'');
                 int b = ability.find('\'', a + 1);
@@ -103,6 +100,7 @@ public:
                 newAbility->setSpecial(special);
                 a_instance.insert({i, newAbility});
             }
+            fin.close();
         }
         return a_instance;
     }

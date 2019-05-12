@@ -13,6 +13,7 @@ private:
     Location *location;
     bool inGame, canHeal, canFight, canBuyPokeball;
     Player *player;
+    std::vector<IObserver*> obs = std::vector<IObserver*>(0);
 public:
     Game(): player(new Player()), location(LocationBank::instance()[0]), inGame(false),
     canHeal(false), canFight(false), canBuyPokeball(false) {}
@@ -24,21 +25,35 @@ public:
             delete t.second;
         for(auto t: AbilityBank::instance())
             delete t.second;
+        POKEDEX_DELETED = LOCATIONS_DELETED = ABILITIES_DELETED = true;
     }
 
-    Location* getLocation() {return location;}
-    Player* getPlayer() {return player;}
-
-    void setLocation(Location* __location) {location = __location;}
-    void setPlayer(Player* __player) {player = __player;}
+    void setLocation(Location* __location) {
+    	location = __location;
+        notificate();
+    }
+    void setPlayer(Player* __player) {
+    	player = __player;
+        notificate();
+    }
     void gameOver() {inGame = false;}
     void setCanHeal(bool __canHeal) {canHeal = __canHeal;}
     void setCanFight(bool __canFight) {canFight = __canFight;}
     void setCanBuyPokeball(bool __canBuyPokeball) {canBuyPokeball = __canBuyPokeball;}
 
+
+    Location* getLocation() {return location;}
+    Player* getPlayer() {return player;}
+    bool getInGame() {return inGame;}
     bool getCanHeal() {return canHeal;}
     bool getCanFight() { return canFight;}
     bool getCanBuyPokeball() { return canBuyPokeball;}
+
+    void addObserver(IObserver* observer) {obs.emplace_back(observer);}
+    void notificate() {
+        for(auto observer: obs)
+            observer->handleAction(player, this);
+    }
 
     void run();
 };
@@ -47,18 +62,26 @@ public:
 class HealDetectObserver: public IObserver {
 public:
     void handleAction(Player* p, Game* g) override {
-        g->setCanHeal(p->getMoney() >= 10 && g->getLocation()->getName() == "Home");
+    	if(!p || !g)
+    		return;
+        g->setCanHeal(p->getMoney() >= 10 && g->getLocation()->getName() == "Home" && !p->getPokemons().empty());
     }
 };
 
 class FightDetectObserver: public IObserver {
+public:
     void handleAction(Player* p, Game* g) override {
-        g->setCanFight(p->getPokemons()[0]->getHp() > 0 && !g->getLocation()->getLocalPokemons().empty());
+    	if(!p || !g)
+    		return;
+        g->setCanFight(!p->getPokemons().empty() && p->getPokemons()[0]->getHp() > 0 && !g->getLocation()->getLocalPokemons().empty());
     }
 };
 
 class BuyPokeballDetectObserver: public IObserver {
+public:
     void handleAction(Player* p, Game* g) override {
+    	if(!p || !g)
+    		return;
         g->setCanBuyPokeball(p->getMoney() >= 30 && g->getLocation()->getName() == "Home");
     }
 };
@@ -108,9 +131,11 @@ public:
         }
         game->getPlayer()->addPokemon(new RealPokemon(pokemon));
 
-        game->getPlayer()->addObserver(new HealDetectObserver());
+		auto obs = new HealDetectObserver();
+        game->getPlayer()->addObserver(obs);
         game->getPlayer()->addObserver(new FightDetectObserver());
         game->getPlayer()->addObserver(new BuyPokeballDetectObserver());
+        game->addObserver(obs);
 
         game->getPlayer()->setGame(game);
         game->getPlayer()->setMoney(100);
@@ -197,7 +222,7 @@ public:
     explicit FightCommand(Game* g): Command(g) {};
     void execute() override {
         if(!game->getCanFight()) {
-            cout << "Your main pokemon has no hp or you're on the location without pokemons!";
+            cout << "Your main pokemon has no hp or you're on the location without pokemons!\n";
             return;
         }
         clock_t timer = clock();
@@ -209,6 +234,7 @@ public:
             game->getPlayer()->addMoney(localPokemon->getLevel() * 2);
             game->getPlayer()->getPokemons()[0]->addExp(localPokemon->getLevel() * localPokemon->getLevel() * localPokemon->getLevel() * 4);
         }
+        delete battle;
         delete localPokemon;
         game->getPlayer()->notificate();
     }
@@ -227,6 +253,7 @@ public:
         for(auto pok:game->getPlayer()->getPokemons())
             pok->setHp(pok->getMaxHp());
         cout << "Done! Pokemons are healed.\n";
+        game->getPlayer()->notificate();
     }
 };
 
@@ -241,6 +268,7 @@ public:
         game->getPlayer()->setMoney(game->getPlayer()->getMoney() - 30);
         game->getPlayer()->setPokeballs(game->getPlayer()->getPokeballs() + 1);
         cout << "Done! +1 pokeball.\n";
+        game->getPlayer()->notificate();
     }
 };
 

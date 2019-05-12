@@ -2,20 +2,6 @@
 #define POKEMONS_PLAYER_H
 #include "Ability.h"
 
-class Player;
-class Game;
-
-/// Interface Observer which implemented in Game.h exists to
-/// trace changes in game where ability of player to heal or fight is changing
-/// so there are 3 observers: HealDetectObserver and FightDetectObserver
-/// and BuyPokeballDetectObserver
-
-class IObserver {
-public:
-    virtual void handleAction(Player* p, Game* g) = 0;
-};
-
-
 class Player{
 private:
     std::string name;
@@ -39,7 +25,10 @@ public:
     Game* getGame() const {return game;}
 
     void setName(const std::string &__name) {name = __name;}
-    void setPokemons(const std::vector<Pokemon*>& __pokemons) {pokemons = __pokemons;}
+    void setPokemons(const std::vector<Pokemon*>& __pokemons) {
+		pokemons = __pokemons;
+        notificate();
+}
     void setPokeballs(int __pokeballs) {
         pokeballs = __pokeballs;
         notificate();
@@ -48,8 +37,14 @@ public:
         money = __money;
         notificate();
     }
-    void setGame(Game* __game) {game = __game;}
-    void addPokemon(Pokemon* pokemon) {pokemons.emplace_back(pokemon);}
+    void setGame(Game* __game) {
+		game = __game;
+        notificate();
+	}
+    void addPokemon(Pokemon* pokemon) {
+		pokemons.emplace_back(pokemon);
+        notificate();
+	}
     void addMoney(int __money) {
         money += __money;
         notificate();

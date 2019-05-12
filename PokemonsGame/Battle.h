@@ -12,6 +12,11 @@ public:
     Battle(): player(nullptr), pokemon(nullptr){}
     Battle(Player* __player, Pokemon* __pokemon): player(__player), pokemon(__pokemon){}
 
+    ~Battle() = default;
+
+	Player* getPlayer() const {return player;}
+	Pokemon* getPokemon() const {return pokemon;}
+
     bool run() {
         cout << "Your current pokemon is: \n";
         player->getPokemons()[0]->print();
@@ -33,10 +38,10 @@ public:
             enemyAbility->setObj(pokemon);
             enemyAbility->setSubj(player->getPokemons()[0]);
 
-            Ability* playerAbility;
+            Ability* playerAbility = nullptr;
 
             bool end = false;
-            cout << "\nWrite number of attack you'd like to choose or write 0 to throw a pokeball.\n";
+            cout << "\nWrite number of attack you'd like to choose or write 0 to throw a pokeball." << '\n';
             while(!end) {
                 std::string t;
                 std::cout.flush();
@@ -52,7 +57,7 @@ public:
                     }
                 if(t == "0") {
                     if(!player->getPokeballs()) {
-                        cout << "You can't do it, you have no pokeballs!\n";
+                        cout << "You can't do it, you have no pokeballs!" << '\n';
                     } else {
                         int rd = rand() % 101;
                         player->setPokeballs(player->getPokeballs() - 1);
@@ -68,8 +73,8 @@ public:
                         end = true;
                     }
                 }
-                if(!end)
-                    cout << "Incorrect number, try again.\n";
+                if(!end && t != "0")
+                    cout << "Incorrect number, try again." << '\n';
             }
             Ability *p1 = playerAbility, *p2 = enemyAbility;
             if(player->getPokemons()[0]->getSpeed() < pokemon->getSpeed())
@@ -82,17 +87,18 @@ public:
                 p1->execute();
                 p2->execute();
             }
-            if(playerAbility->getObj()->getHp() && !playerAbility->getSubj()->getHp()) {
+            delete enemyAbility, delete playerAbility;
+            if(player->getPokemons()[0]->getHp() > 0 && pokemon->getHp() == 0) {
                 cout << "You won! You've got money and exp.\n";
                 return true;
             }
-            else if(!playerAbility->getObj()->getHp() and playerAbility->getSubj()->getHp()) {
+            else if(player->getPokemons()[0]->getHp() == 0 and pokemon->getHp() > 0) {
                 cout << "You are defeated! Repair your pokemons and try again :).\n";
                 return false;
             }
-            else if(!playerAbility->getObj()->getHp() && !playerAbility->getSubj()->getHp()) {
+            else if(player->getPokemons()[0]->getHp() == 0 && pokemon->getHp() == 0) {
                 cout << "You're defeated but you won. Here is your money and exp but your pokemon\n"
-                        "is defeated, treat it before next battle.\n";
+                        "is defeated, heal it before next battle.\n";
                 return true;
             }
         }

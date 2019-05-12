@@ -10,10 +10,27 @@
 using std::cin;
 using std::cout;
 
-class Ability;
-
 #define pokemonId int
 #define NUMBER_OF_POKEMONS 926
+
+
+class Ability;
+class Player;
+class Game;
+bool POKEDEX_DELETED = true;
+bool LOCATIONS_DELETED = true;
+bool ABILITIES_DELETED = true;
+/// Interface Observer which implemented in Game.h exists to
+/// trace changes in game where ability of player to heal or fight is changing
+/// so there are 3 observers: HealDetectObserver and FightDetectObserver
+/// and BuyPokeballDetectObserver
+
+class IObserver {
+public:
+    virtual void handleAction(Player* p, Game* g) = 0;
+};
+
+
 
 enum pokType {  Normal,
                 Fire,
@@ -111,6 +128,8 @@ public:
         abilities = std::vector<int>(__pokemon.abilities);
     }
 
+    virtual ~Pokemon() {};
+
     virtual int getExp() const {return exp;}
     virtual int getMaxExp() const {return maxExp;}
     virtual int getId() const {return id;}
@@ -173,18 +192,25 @@ public:
     Pokedex(const Pokedex&) = delete;
     Pokedex& operator=(const Pokedex&) = delete;
     static PokemonLibrary& instance() {                             /// I have parsed database ("pokedex.txt") and I wanted to
-        if(p_instance.empty()){                                     /// have an opportunity to change pokemon stats
-            std::ifstream in;                                       /// in new game but I also didn't want to have an opportunity
-            in.open("../sources/pokedex.txt");                      /// to change stats during the game so I create a "Singleton"
+        if(p_instance.empty() || POKEDEX_DELETED){
+            p_instance = PokemonLibrary();
+            POKEDEX_DELETED = false;                                /// have an opportunity to change pokemon stats
+            std::ifstream fin;                                      /// in new game but I also didn't want to have an opportunity
+            fin.open("../sources/pokedex.txt");                     /// to change stats during the game so I create a "Singleton"
             for(pokemonId i = 1; i <= NUMBER_OF_POKEMONS; i++){     /// Pokedex for the case if someone change smth during the game.
-                std::string s;
-                getline(in, s);
+
+
+                auto p = new Pokemon();                
+                std::string s, s2;
+                getline(fin, s2);
+                int k = 0;
+                while(!isdigit(s2[k]))
+                	k++;
+                s = s2.substr(0, k - 1);
+                p->setName(s);
+                s = s2.substr(k);
                 std::stringstream pokemon(s);
                 std::string text;
-
-                auto p = new Pokemon();
-                pokemon >> text;
-                p->setName(text);
                 int num;
                 pokemon >> num;
                 for(int j = 0; j < num; j++) {
@@ -218,6 +244,7 @@ public:
                 p->setId(i);
                 p_instance.insert({i, p});
             }
+            fin.close();
         }
         return p_instance;
     }
@@ -279,6 +306,10 @@ public:
     RealPokemon(Pokemon* __pokemon): TYPE_CONST(1 * __pokemon->getTypeConst()) {
         m_pokemon = __pokemon;
         m_pokemon->setHp(this->getMaxHp());
+    }
+
+    ~RealPokemon() {
+        delete m_pokemon;
     }
 
     int getExp() const override {return m_pokemon->getExp();}

@@ -89,17 +89,19 @@ public:
     LocationBank(const LocationBank&) = delete;
     LocationBank& operator=(const LocationBank&) = delete;
     static LocationLibrary& instance() {
-        if(l_instance.empty()){
-            std::ifstream in;
-            in.open("../sources/locations.txt");
+        if(l_instance.empty() || LOCATIONS_DELETED){
+            LOCATIONS_DELETED = false;
+            l_instance = LocationLibrary();
+            std::ifstream fin;
+            fin.open("../sources/locations.txt");
             int numOfLocations;
-            in >> numOfLocations;
+            fin >> numOfLocations;
             std::string location;
-            getline(in, location);
+            getline(fin, location);
             std::vector<Location*> lib(0);
             std::vector<std::vector<int>> neighboursVector(0, std::vector<int>(0, 0));
             for(int i = 0; i < numOfLocations; ++i) {
-                getline(in, location);
+                getline(fin, location);
                 auto *newLocation = new Location();
                 int a = location.find('\'');
                 int b = location.find('\'', a + 1);
@@ -139,6 +141,7 @@ public:
                     lib[i]->addNeighbour(lib[neighboursVector[i][j]]);
             for(int i = 0; i < numOfLocations; ++i)
                 l_instance.insert({i, lib[i]});
+            fin.close();
         }
         return l_instance;
     }
