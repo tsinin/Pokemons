@@ -6,4 +6,5 @@ Guide to install:
 2) Write "sudo ./installPokemons-linus.sh <install_path>".
 
 Architecture scheme:
+
 .. image:: https://pp.userapi.com/c853524/v853524299/3ca1b/1oYD_gFLHUk.jpg

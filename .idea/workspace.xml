@@ -12,18 +12,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24a275d4-d601-4c6e-914a-5a1c62d5d542" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PokemonsGame/Ability.h" beforeDir="false" afterPath="$PROJECT_DIR$/PokemonsGame/Ability.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PokemonsGame/Battle.h" beforeDir="false" afterPath="$PROJECT_DIR$/PokemonsGame/Battle.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PokemonsGame/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/PokemonsGame/Game.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PokemonsGame/Location.h" beforeDir="false" afterPath="$PROJECT_DIR$/PokemonsGame/Location.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PokemonsGame/Player.h" beforeDir="false" afterPath="$PROJECT_DIR$/PokemonsGame/Player.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PokemonsGame/Pokemon.h" beforeDir="false" afterPath="$PROJECT_DIR$/PokemonsGame/Pokemon.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PokemonsGame/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/abilities.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/locations.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/pokedex.txt" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/google-tests/googletest-master/googlemock/CMakeFiles/" />
@@ -52,7 +45,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PokemonsGame/Game.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
+            <state relative-caret-position="3615">
               <caret line="241" column="2" selection-start-line="241" selection-start-column="2" selection-end-line="241" selection-end-column="2" />
             </state>
           </provider>
@@ -61,7 +54,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PokemonsGame/Pokemon.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
+            <state relative-caret-position="2610">
               <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="8" />
             </state>
           </provider>
@@ -70,7 +63,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3071">
+            <state relative-caret-position="16965">
               <caret line="1131" column="14" selection-start-line="1131" selection-start-column="14" selection-end-line="1131" selection-end-column="14" />
               <folding>
                 <element signature="e#261#1139#1" />
@@ -86,7 +79,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PokemonsGame/Battle.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1470">
+            <state relative-caret-position="1485">
               <caret line="99" column="37" selection-start-line="99" selection-start-column="37" selection-end-line="99" selection-end-column="37" />
             </state>
           </provider>
@@ -95,8 +88,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+            <state relative-caret-position="180">
+              <caret line="12" column="15" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -163,6 +156,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -184,7 +178,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -262,12 +255,12 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.Pokemons" />
+      <item itemvalue="Google Test.BattleTest.RunWinTest" />
       <item itemvalue="Google Test.GameTest" />
+      <item itemvalue="Google Test.GameTest.UnknownCommand" />
       <item itemvalue="Google Test.LocationTest" />
       <item itemvalue="Google Test.PlayerTest" />
-      <item itemvalue="Google Test.GameTest.UnknownCommand" />
-      <item itemvalue="Google Test.BattleTest.RunWinTest" />
+      <item itemvalue="CMake Application.Pokemons" />
     </list>
     <recent_temporary>
       <list>
@@ -298,7 +291,8 @@
       <workItem from="1555184769970" duration="10533000" />
       <workItem from="1555240101534" duration="3306000" />
       <workItem from="1557555398584" duration="18081000" />
-      <workItem from="1557618590073" duration="5091000" />
+      <workItem from="1557618590073" duration="5670000" />
+      <workItem from="1557668705828" duration="812000" />
     </task>
     <servers />
   </component>
@@ -335,7 +329,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111580000" />
+    <option name="totallyTimeSpent" value="112971000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -350,7 +344,7 @@
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32242617" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.32801276" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -487,6 +481,48 @@
     <entry file="file://$PROJECT_DIR$/sources/abilities.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/PokemonsGame/Player.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PokemonsGame/Game.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3615">
+          <caret line="241" column="2" selection-start-line="241" selection-start-column="2" selection-end-line="241" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PokemonsGame/Pokemon.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2610">
+          <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16965">
+          <caret line="1131" column="14" selection-start-line="1131" selection-start-column="14" selection-end-line="1131" selection-end-column="14" />
+          <folding>
+            <element signature="e#261#1139#1" />
+            <element signature="e#1146#2023#1" />
+            <element signature="e#2030#2909#1" />
+            <element signature="e#2916#3791#1" />
+            <element signature="e#3063#4199#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PokemonsGame/Battle.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1485">
+          <caret line="99" column="37" selection-start-line="99" selection-start-column="37" selection-end-line="99" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PokemonsGame/Ability.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1245">
@@ -501,52 +537,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PokemonsGame/Player.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PokemonsGame/Pokemon.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PokemonsGame/Battle.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1470">
-          <caret line="99" column="37" selection-start-line="99" selection-start-column="37" selection-end-line="99" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PokemonsGame/Game.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="241" column="2" selection-start-line="241" selection-start-column="2" selection-end-line="241" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3071">
-          <caret line="1131" column="14" selection-start-line="1131" selection-start-column="14" selection-end-line="1131" selection-end-column="14" />
-          <folding>
-            <element signature="e#261#1139#1" />
-            <element signature="e#1146#2023#1" />
-            <element signature="e#2030#2909#1" />
-            <element signature="e#2916#3791#1" />
-            <element signature="e#3063#4199#1" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+        <state relative-caret-position="180">
+          <caret line="12" column="15" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
         </state>
       </provider>
     </entry>
