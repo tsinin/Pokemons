@@ -16,8 +16,11 @@ script:
   - cmake .. -DTEST=$TEST -DTARGET_CPU=$TARGET_CPU
   - make
   - ./Pokemons
-  
-notifications:
-  email:
+
+notifications:  
+  email:  
+    recipients:  
     - andrew.tsinin@mail.ru
     - andrew.tsinin@gmail.com
+    on_success: always  
+    on_failure: always
