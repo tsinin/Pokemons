@@ -18,6 +18,6 @@ script:
   - ./Pokemons
   
 notifications:
-email:
-  - andrew.tsinin@mail.ru
-  - andrew.tsinin@gmail.com
+  email:
+    - andrew.tsinin@mail.ru
+    - andrew.tsinin@gmail.com
