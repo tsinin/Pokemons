@@ -1,0 +1,5 @@
+4
+'Usual attack' 50 0
+'Special attack' 50 1
+'Super attack' 100 0
+'Super special attack' 100 1
